@@ -68,21 +68,38 @@ classDiagram
 ```
 
 ---
-
 ## 3. Diagrama de Casos de Uso UML (Mermaid)
 
 ```mermaid
 graph LR
+    %% Definición de Actores externos
     Jugador((Actor: Jugador))
-    CU01[CU-01 Iniciar Partida]
-    CU02[CU-02 Simular Movimiento y Colisión]
+    Sistema((Actor: Sistema / Motor))
 
+    %% Frontera del Sistema (Lógica del Motor)
+    subgraph Motor2D [Frontera del Motor de Control]
+        CU01("(CU-01) Iniciar Partida")
+        CU02("(CU-02) Cambiar Estado Juego<br>(Pausa/Reanudar)")
+        CU03("(CU-03) Procesar Entrada Táctil")
+        CU04("(CU-04) Ejecutar Ciclo (Game Loop)")
+        CU05("(CU-05) Actualizar Comportamiento NPC")
+        CU06("(CU-06) Verificar Colisiones Simples")
+        CU07("(CU-07) Gestionar Game Over")
+    end
+
+    %% Interacciones del Jugador (Entradas de control)
     Jugador --> CU01
     Jugador --> CU02
+    Jugador --> CU03
+
+    %% Interacciones del Sistema (Procesos en segundo plano)
+    Sistema --> CU04
+
+    %% Relaciones internas del motor (Dependencias lógicas)
+    CU04 -.->|include| CU05
+    CU04 -.->|include| CU06
+    CU06 -.->|extend: si vidas <= 0| CU07
 ```
-
----
-
 ## 4. Especificación de Casos de Uso
 
 ### Caso de Uso 1: Iniciar Partida
