@@ -18,6 +18,11 @@ public class Personaje extends EntidadVideojuego {
 
     @Override
     public void actualizar() {
-        // Aquí irá la lógica de movimiento y comportamiento NPC más adelante
+        // Funcionalidad Avanzada 2: Comportamiento Básico NPC
+        if (getTipo().equals("ENEMIGO") && isActivo()) {
+            // Simulamos que el enemigo patrulla moviéndose hacia la izquierda (restando X)
+            setX(getX() - 1);
+            System.out.println("[NPC] " + getNombre() + " patrullando. Nueva posición X: " + getX());
+        }
     }
 }
