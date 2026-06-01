@@ -1,4 +1,13 @@
+/**
+ * Punto de entrada de la aplicación. Crea el motor, las entidades y lanza
+ * una pequeña simulación del game loop.
+ */
 public class Main {
+    /**
+     * Método principal que arranca la demo del motor de juego.
+     *
+     * @param args argumentos de línea de comandos (no usados)
+     */
     public static void main(String[] args) {
         System.out.println("=== INICIANDO SUPER MARIO BROS ENGINE ===");
         

@@ -1,32 +1,54 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Motor del juego responsable de gestionar el estado global, el ciclo de
+ * actualización (game loop) y las entidades presentes en la escena.
+ */
 public class MotorJuego {
-    // Definimos los estados posibles del motor
+    /** Estados posibles del motor de juego. */
     public enum EstadoJuego { MENU, JUGANDO, PAUSA, GAME_OVER }
     
     private EstadoJuego estadoActual;
     private List<EntidadVideojuego> entidades;
 
+    /**
+     * Crea e inicializa un nuevo motor de juego en estado MENU.
+     */
     public MotorJuego() {
         this.estadoActual = EstadoJuego.MENU;
         this.entidades = new ArrayList<>();
     }
 
+    /**
+     * Cambia el estado actual del motor.
+     *
+     * @param nuevoEstado el nuevo estado a establecer
+     */
     public void setEstado(EstadoJuego nuevoEstado) {
         this.estadoActual = nuevoEstado;
         System.out.println("[MOTOR] Estado cambiado a: " + estadoActual);
     }
 
+    /**
+     * Añade una entidad al motor para que sea procesada en cada tick.
+     *
+     * @param entidad la entidad a agregar
+     */
     public void agregarEntidad(EntidadVideojuego entidad) {
         entidades.add(entidad);
     }
 
+    /** Devuelve el estado actual del motor. */
     public EstadoJuego getEstadoActual() {
         return estadoActual;
     }
 
-    // EL GAME LOOP SIMULADO
+    /**
+     * Ejecuta un ciclo de actualización simulado. Solo realiza acciones si el
+     * estado actual es JUGANDO: actualiza cada entidad activa y verifica
+     * colisiones.
+     */
     public void actualizar() {
         if (estadoActual != EstadoJuego.JUGANDO) return;
 
@@ -39,6 +61,12 @@ public class MotorJuego {
         verificarColisiones();
     }
 
+   /**
+    * Verificador simple de colisiones que compara posiciones enteras X/Y de
+    * las entidades. Si el jugador colisiona con un enemigo, pierde una vida.
+    * (Implementación simple para demo; no considera bounding boxes ni
+    * detección continua.)
+    */
    private void verificarColisiones() {
         // Funcionalidad Avanzada 1: Detector de Colisiones Simple
         if (entidades.size() < 2) return;
@@ -68,6 +96,8 @@ public class MotorJuego {
             }
         }
     }
+
+    /** Devuelve la lista de entidades registradas en el motor. */
     public List<EntidadVideojuego> getEntidades() {
         return entidades;
     }
